@@ -548,6 +548,25 @@
       };
       legend.addTo(map);
     }
+
+// Klikreactie op de kaart
+map.on('click', function (e) {
+  const lat = e.latlng.lat.toFixed(6);
+  const lng = e.latlng.lng.toFixed(6);
+
+  // Object met kliktype en coördinaten
+  const clickData = { type: 'mapClick', coords: { lat, lng } };
+
+  console.log(clickData); // toon in de console
+  alert(`Klik op kaart:\nLatitude: ${lat}\nLongitude: ${lng}`);
+
+  // Je kunt hier ook iets anders mee doen, bijvoorbeeld:
+  // sendToParent(clickData); of
+  // fetch('/api/log', { method:'POST', body: JSON.stringify(clickData) })
+});
+
+
+
   </script>
 </body>
 </html>
