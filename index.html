@@ -12,16 +12,24 @@
 
   <style>
     /* =============== Basis layout + huisstijl randen =============== */
-    html, body {
+    html,
+    body {
       height: 100%;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      border-top: 5px solid #86bc25;   /* groen */
-      border-bottom: 10px solid #b3cbd9; /* blauwgrijs */
-      overflow: hidden; /* geen scrollbalken */
+      border-top: 5px solid #86bc25;
+      /* groen */
+      border-bottom: 10px solid #b3cbd9;
+      /* blauwgrijs */
+      overflow: hidden;
+      /* geen scrollbalken */
     }
-    #map { height: 100%; width: 100%; }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
 
     /* =============== Titelbadge (middenboven) =============== */
     .map-title {
@@ -34,39 +42,63 @@
       padding: 8px 20px;
       border-radius: 10px;
       z-index: 1000;
-      box-shadow: 0 2px 6px rgba(0,0,0,.15);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       text-align: center;
     }
-    .map-title h1 { margin: 0; font-size: 25px; font-weight: 700; }
-    .map-title p { margin: 2px 0 0; font-size: 14px; color: #e7f2cf; }
+
+    .map-title h1 {
+      margin: 0;
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .map-title p {
+      margin: 2px 0 0;
+      font-size: 14px;
+      color: #e7f2cf;
+    }
 
     /* =============== Tooltip / pin-label look =============== */
     .name-id-tooltip {
       font-weight: 600;
-      box-shadow: 0 2px 6px rgba(0,0,0,.15);
-      border: 1px solid rgba(0,0,0,.15);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+      border: 1px solid rgba(0, 0, 0, .15);
     }
+
     .leaflet-tooltip {
       background: #fff;
       color: #222;
-      border: 1px solid rgba(0,0,0,.25);
+      border: 1px solid rgba(0, 0, 0, .25);
     }
-    .leaflet-tooltip a, .leaflet-popup-content a {
+
+    .leaflet-tooltip a,
+    .leaflet-popup-content a {
       color: #1a73e8;
       text-decoration: underline;
       font-weight: 500;
     }
-    .leaflet-tooltip a:hover, .leaflet-popup-content a:hover {
+
+    .leaflet-tooltip a:hover,
+    .leaflet-popup-content a:hover {
       color: #0b59c7;
       text-decoration: none;
     }
 
     /* =============== Rechter stapel: spacing + uniforme breedte =============== */
-    .leaflet-top.leaflet-right { margin-top: 8px; }
-    .leaflet-top.leaflet-right .leaflet-control { margin-bottom: 8px; }
+    .leaflet-top.leaflet-right {
+      margin-top: 8px;
+    }
+
     .leaflet-top.leaflet-right .leaflet-control {
-      width: 240px; min-width: 240px; box-sizing: border-box; border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .leaflet-top.leaflet-right .leaflet-control {
+      width: 240px;
+      min-width: 240px;
+      box-sizing: border-box;
+      border-radius: 8px;
       font: 14px/1.3 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color: #436026;
     }
@@ -76,81 +108,185 @@
       background: #fff;
       padding: 10px 12px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
       max-height: 45vh;
       overflow: auto;
     }
-    .legend h4 { margin: 0 0 6px; font-size: 14px; }
-    .legend .group { margin-bottom: 10px; }
-    .legend .row { display:flex; align-items:center; gap:6px; margin:3px 0; }
-    .legend .controls { display:flex; gap:8px; margin:6px 0 8px; flex-wrap:wrap; }
-    .legend .controls button {
-      font-size:12px; padding:2px 6px; border:1px solid #ddd; background:#f6f6f6;
-      border-radius:4px; cursor:pointer;
+
+    .legend h4 {
+      margin: 0 0 6px;
+      font-size: 14px;
     }
-    .legend .controls button:hover { background:#eee; }
+
+    .legend .group {
+      margin-bottom: 10px;
+    }
+
+    .legend .row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 3px 0;
+    }
+
+    .legend .controls {
+      display: flex;
+      gap: 8px;
+      margin: 6px 0 8px;
+      flex-wrap: wrap;
+    }
+
+    .legend .controls button {
+      font-size: 12px;
+      padding: 2px 6px;
+      border: 1px solid #ddd;
+      background: #f6f6f6;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .legend .controls button:hover {
+      background: #eee;
+    }
 
     /* =============== Mooie checkbox/radio-stijl =============== */
     .legend input[type="checkbox"],
     .leaflet-control-layers input[type="checkbox"],
-    .leaflet-control-layers input[type="radio"]{
-      appearance:none; -webkit-appearance:none; -moz-appearance:none;
-      width:16px; height:16px; border:2px solid #86bc25; border-radius:3px;
-      background:#fff; cursor:pointer; position:relative; transition:.2s;
+    .leaflet-control-layers input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #86bc25;
+      border-radius: 3px;
+      background: #fff;
+      cursor: pointer;
+      position: relative;
+      transition: .2s;
     }
+
     .legend input[type="checkbox"]:checked,
     .leaflet-control-layers input[type="checkbox"]:checked,
-    .leaflet-control-layers input[type="radio"]:checked{
-      background:#86bc25; border-color:#86bc25;
+    .leaflet-control-layers input[type="radio"]:checked {
+      background: #86bc25;
+      border-color: #86bc25;
     }
+
     .legend input[type="checkbox"]:checked::after,
     .leaflet-control-layers input[type="checkbox"]:checked::after,
-    .leaflet-control-layers input[type="radio"]:checked::after{
-      content:''; position:absolute; left:4px; top:0px; width:4px; height:8px;
-      border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg);
+    .leaflet-control-layers input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 0px;
+      width: 4px;
+      height: 8px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
     }
 
     /* =============== Leaflet layer control (stijl) =============== */
     .leaflet-control-layers {
-      background:#fff; border:2px solid #86bc25; border-radius:8px;
-      box-shadow:0 2px 6px rgba(0,0,0,.15);
+      background: #fff;
+      border: 2px solid #86bc25;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
     }
+
     .leaflet-control-layers-base label,
     .leaflet-control-layers-overlays label {
-      display:flex; align-items:center; gap:6px; font-size:14px; padding:2px 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      padding: 2px 6px;
     }
-    .leaflet-control-layers label:hover { background:rgba(134,188,37,.1); }
+
+    .leaflet-control-layers label:hover {
+      background: rgba(134, 188, 37, .1);
+    }
 
     /* =============== Layer control collapsed / hamburger =============== */
-    .leaflet-control-layers.collapsed{
-      background:transparent!important; border:0!important; box-shadow:none!important; padding:0!important;
+    .leaflet-control-layers.collapsed {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      padding: 0 !important;
     }
-    .leaflet-control-layers.collapsed .leaflet-control-layers-toggle{
-      display:block; width:36px; height:36px; border-radius:8px;
-      background-color:#86bc25!important; background-image:none!important; border:0!important;
-      box-shadow:0 2px 6px rgba(0,0,0,.15); position:relative;
+
+    .leaflet-control-layers.collapsed .leaflet-control-layers-toggle {
+      display: block;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background-color: #86bc25 !important;
+      background-image: none !important;
+      border: 0 !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+      position: relative;
     }
-    .leaflet-control-layers.collapsed .leaflet-control-layers-toggle::after{
-      content:'≡'; position:absolute; top:50%; transform:translateY(-50%); left:8px;
-      color:#fff; font-weight:700; font-size:18px; line-height:1; margin:0;
+
+    .leaflet-control-layers.collapsed .leaflet-control-layers-toggle::after {
+      content: '≡';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 8px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 1;
+      margin: 0;
     }
+
     .leaflet-bar .leaflet-control-layers-toggle,
-    .leaflet-bar .leaflet-control-layers-toggle:hover { border:none!important; }
+    .leaflet-bar .leaflet-control-layers-toggle:hover {
+      border: none !important;
+    }
 
     /* =============== Collapsible panel-stijl (voor legenda & filters) =============== */
-    .legend details.panel { padding: 0; }
-    .legend details.panel > summary {
-      list-style: none; cursor: pointer; padding: 8px 10px; font-weight: 600;
-      color: #436026; background: #f6fbef; border-radius: 6px 6px 0 0;
+    .legend details.panel {
+      padding: 0;
     }
-    .legend details.panel[open] > summary { border-bottom: 1px solid #e3efcf; }
-    .legend .panel-body { padding: 8px 10px 10px; }
+
+    .legend details.panel>summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 8px 10px;
+      font-weight: 600;
+      color: #436026;
+      background: #f6fbef;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .legend details.panel[open]>summary {
+      border-bottom: 1px solid #e3efcf;
+    }
+
+    .legend .panel-body {
+      padding: 8px 10px 10px;
+    }
 
     /* =============== Responsive: controls onderaan op mobiel =============== */
-    @media (max-width: 768px){
-      .leaflet-top.leaflet-right{ top:auto; bottom:8px; right:0; left:auto; }
-      .leaflet-top.leaflet-right .leaflet-control{ width:92vw; max-width:360px; margin-right:8px; }
-      .leaflet-control-layers{ width:100%; }
+    @media (max-width: 768px) {
+      .leaflet-top.leaflet-right {
+        top: auto;
+        bottom: 8px;
+        right: 0;
+        left: auto;
+      }
+
+      .leaflet-top.leaflet-right .leaflet-control {
+        width: 92vw;
+        max-width: 360px;
+        margin-right: 8px;
+      }
+
+      .leaflet-control-layers {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -549,18 +685,38 @@
       legend.addTo(map);
     }
 
-// Klikreactie op de kaart
-document.addEventListener("DOMContentLoaded", function () {
-var baseUrl = document.getElementById("iframe-widget-container").getAttribute("data-cta-url");
-var ctaButton = document.getElementById('iframe-cta-button');
+    // Klikreactie op de kaart naar open stad
+    map.on('click', function (e) {
+      const lat = e.latlng.lat.toFixed(6);
+      const lng = e.latlng.lng.toFixed(6);
 
-map.on('click', function (e) {
-    const lat = e.latlng.lat.toFixed(6);
-    const lng = e.latlng.lng.toFixed(6);
-    var newUrl = baseUrl + "?lat=" + lat + "&lng=" + lng;
-    ctaButton.href = newUrl;
-});
-});
+      // Create the message with the coordinates
+      var message = {
+        lat: lat,
+        lng: lng
+      };
+
+      // Send the message to the parent window
+      window.parent.postMessage(message, '*');
+    });
+
+
+    // Klik genereert marker
+    let marker; // variable to store the marker
+
+    map.on('click', function (e) {
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
+
+      // If a marker already exists, remove it
+      if (marker) {
+        map.removeLayer(marker);
+      }
+
+      // Create a new marker at the clicked location
+      marker = L.marker([lat, lng]).addTo(map);
+
+    });
 
 
 
@@ -569,4 +725,5 @@ map.on('click', function (e) {
 
   </script>
 </body>
+
 </html>
