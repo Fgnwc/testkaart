@@ -550,6 +550,7 @@
     }
 
 // Klikreactie op de kaart
+document.addEventListener("DOMContentLoaded", function () {
 var baseUrl = document.getElementById("iframe-widget-container").getAttribute("data-cta-url");
 var ctaButton = document.getElementById('iframe-cta-button');
 
@@ -559,6 +560,9 @@ map.on('click', function (e) {
     var newUrl = baseUrl + "?lat=" + lat + "&lng=" + lng;
     ctaButton.href = newUrl;
 });
+});
+
+
 
 
 
